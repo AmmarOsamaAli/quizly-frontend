@@ -1,14 +1,61 @@
 # Project Name
-Quizly
+### Quizly
 ## Overview
-
+The **React frontend** for a real-time, multiplayer Kahoot-style quiz game. Handles the host dashboard, quiz creation UI, live game screens, and player join/gameplay experience.
+ 
+This client communicates with a separate backend service that exposes:
+- a **REST API** (Node + Express + JWT) for authentication, quiz CRUD, and stored game reports
+- a **Socket.io server** for real-time game state — question broadcasts, timers, live answers, and leaderboard updates
 ## Screenshots
 
 ## Technologies Used
-
+**React**, **Socket.io**
 ## Getting Started
 
-## Installation
+## Frontend Installation
+ 
+Follow these steps to set up and run the React frontend locally.
+ 
+### Prerequisites
+ 
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- npm (comes with Node.js)
+- The backend API and Socket.io server running (see the [backend repo](https://github.com/AmmarOsamaAli/quizly-backend))
+### Steps
+ 
+1. **Create a folder for your project and cd into it**
+```bash
+   mkdir quizly-frontend
+   cd quizly-frontend
+```
+ 
+2. **Perform the following commands in the command line**
+```bash
+   git clone git@github.com:AmmarOsamaAli/quizly-frontend.git
+   rm -rf .git
+   rm README.md
+```
+ 
+3. **Create a `.env` file with the following values**
+```env
+   VITE_BACK_END_SERVER_URL=http://localhost:3000
+```
+ 
+4. **run:**
+```bash
+   npm i
+```
+ 
+5. **run:**
+```bash
+   npm run dev
+```
+ 
+   The app should now be running at `http://localhost:5173`.
+ 
+---
+
+
 
 ## User Stories
 **Authentication** 
