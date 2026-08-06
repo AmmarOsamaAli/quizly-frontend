@@ -1,16 +1,20 @@
 # Project Name
-### Quizly
+
+Quizly | Create Quizzes, Join Games, and Compete with Friends
+
 ## Overview
-The **React frontend** for a real-time, multiplayer Kahoot-style quiz game. Handles the host dashboard, quiz creation UI, live game screens, and player join/gameplay experience.
- 
-This client communicates with a separate backend service that exposes:
-- a **REST API** (Node + Express + JWT) for authentication, quiz CRUD, and stored game reports
-- a **Socket.io server** for real-time game state — question broadcasts, timers, live answers, and leaderboard updates
+
+Quizly is a real-time multiplayer quiz platform. It allows users to create and manage quizzes, host live game sessions, and invite other players to join using a unique room code.
+
+During a live game, players receive questions simultaneously, submit their answers, earn points, and compete on an automatically updated leaderboard. The application combines full CRUD functionality, JWT-based authentication, user authorization, RESTful APIs, and real-time communication to create an interactive quiz experience suitable for classrooms, training sessions, events, and friendly competitions.
 
 ## Screenshots
 
 ## Technologies Used
-**React**, **Socket.io**
+
+- **React**
+- **Socket.io**
+
 ## Getting Started
 
 ## Frontend Installation
@@ -60,7 +64,7 @@ Follow these steps to set up and run the React frontend locally.
 
 ## User Stories
 **Authentication** 
-1. **As a guest**, I want to create an account so II can create and join quizzez.
+1. **As a guest**, I want to create an account so I can create and join quizzez.
 2. **As a user**, I want to sign in so I can access my quizzes.
 3. **As a user**, I want to sign out so my account remains secure.
 
@@ -78,40 +82,54 @@ Follow these steps to set up and run the React frontend locally.
 10. **As a quiz owner**, I want to create a live room.
 11. **As a host**, I want to see players join in real time.
 12. **As a host**, I want to start the game.
-13. **As a host**, I want to control when questions begin and end.
-14. **As a host**, I want to display results and leaderboards.
-15. **As a host**, I want to end the session.
+13. **As a host**, I want to display results and leaderboards.
+14. **As a host**, I want to end the session.
 
 **Playing**
 
-16. **As a player**, I want to join using a room code.
-17. **As a player**, I want to see questions when the host starts them.
-18. **As a player**, I want to submit one answer.
-19. **As a player**, I want to know whether my answer was correct.
-20. **As a player**, I want to see my score and rank.
-21. **As a player**, I want to see the final result.
-
-
-## Database Design
-
-
+15. **As a player**, I want to join using a room code.
+16. **As a player**, I want to see questions when the host starts them.
+17. **As a player**, I want to submit one answer.
+18. **As a player**, I want to know whether my answer was correct.
+19. **As a player**, I want to see my score and rank.
+20. **As a player**, I want to see the final result.
 
 
 
 ## Routes
 
-| Method | Route | Description |
-|---------|-------|-------------|
-| GET | / | Home page |
-| GET | /listings | List all listings |
-| GET | /listings/new | New listing form |
-| POST | /listings | Create listing |
-| GET | /listings/:id | View listing |
-| GET | /listings/:id/edit | Edit listing form |
-| PUT | /listings/:id | Update listing |
-| DELETE | /listings/:id | Delete listing |
+#### User
 
+|    Page    |    URI   |      Use Case     |
+|:----------:|:--------:|:-----------------:|
+| SignUpPage | /sign-up | Show Sign Up Page |
+| SignInPage | /sign-in | Show Sign In Page |
 
+#### General
+
+|    Page   |     URI    |       Use Case      |
+|:---------:|:----------:|:-------------------:|
+|  Homepage |      /     |    Show Homepage    |
+| Dashboard | /dashboard |    Show Dashboard   |
+
+#### Quiz 
+
+|       Page      |          URI          |      Use Case     |
+|:---------------:|:---------------------:|:-----------------:|
+|  AllQuizzesPage |        /quizzes       |  Show All Quizzes |
+|  MyQuizzesPage  |  /quizzes/my-quizzes  |  Show My Quizzes  |
+| QuizDetailsPage |    /quizzes/:quizId   | Show Quiz Details |
+|  CreateQuizPage |    /quizzes/create    |  Create Quiz Page |
+|   EditQuizPage  | /quizzes/:quizId/edit |   Edit Quiz Page  |
+
+#### Game
+
+|         Page        |           URI          |              Use Case             |
+|:-------------------:|:----------------------:|:---------------------------------:|
+|     JoinGamePage    |       /games/join      |        Show Join Game Page        |
+| ParticipantGamePage |   /games/:gameId/play  | Show Gameplay Page as Participant |
+|     HostGamePage    |   /games/:gameId/host  |     Show Gameplay Page as Host    |
+|   GameResultsPage   | /games/:gameId/results |         Show Results Page         |
 
 
 
@@ -119,11 +137,7 @@ Follow these steps to set up and run the React frontend locally.
 
 
 
-
-
 ## Future Enhancements
-
-
 
 
 
