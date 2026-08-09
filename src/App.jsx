@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { getCurrentUser, logout } from "./services/authService";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
+import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 function App() {
   return (
     <div>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/quizzes" element={<AllQuizzesPage/>} />
+        <Route path="/quizzes/:quizId" element={<QuizDetailsPage/>} />
       </Routes>
     </div>
   );

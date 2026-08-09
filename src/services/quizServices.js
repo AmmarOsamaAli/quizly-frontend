@@ -6,7 +6,13 @@ async function getAllQuizzes(){
     return response.data
 }
 
+async function getQuizById(quizId){
+    const response = await api.get(`/quizzes/${quizId}`)
+    return response.data
+}
+
 export {
-    getAllQuizzes
+    getAllQuizzes,
+    getQuizById
 };
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getAllQuizzes } from '../../services/quizServices'
-
+import { Link } from 'react-router'
 
 function AllQuizzesPage() {
     const [quiz, setQuiz] = useState([])
 
-    async function loadQuistions(){
+    async function loadQuizzes(){
         try{
             const response = await getAllQuizzes()
             setQuiz(response)
@@ -16,7 +16,7 @@ function AllQuizzesPage() {
     }
 
     useEffect(()=>{
-        loadQuistions()
+        loadQuizzes()
     }, [])
 
   return (
@@ -29,6 +29,7 @@ function AllQuizzesPage() {
         <p>Difficulty: {oneQuiz.difficulty}</p>
         <p>Category{oneQuiz.category}</p>
         <p>Visibility: {oneQuiz.visibility}</p>
+        <Link to={`/quizzes/${oneQuiz._id}`} >Quiz Details</Link>
         </>
         )}
     </div>
