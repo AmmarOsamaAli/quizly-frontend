@@ -14,6 +14,7 @@ function Navbar() {
         <Link to='/sign-up'>Sign Up</Link>
         <Link to='/sign-in'>Sign In</Link>
       </>)}
+      <Link to='/quizzes'>All Quizzes</Link>
     </nav>
   )
 }
