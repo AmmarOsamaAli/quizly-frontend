@@ -1,13 +1,13 @@
+import { getMyQuizzes } from '../../services/quizServices'
 import React, { useEffect, useState } from 'react'
-import { getAllQuizzes } from '../../services/quizServices'
 import { Link } from 'react-router'
 
-function AllQuizzesPage() {
+function MyQuizzesPage() {
     const [quiz, setQuiz] = useState([])
 
     async function loadQuizzes(){
         try{
-            const response = await getAllQuizzes()
+            const response = await getMyQuizzes()
             setQuiz(response)
         }catch(error){
             console.log(err)
@@ -20,7 +20,7 @@ function AllQuizzesPage() {
 
   return (
     <div>
-        <h1>All Quizzes</h1>
+        <h1>My Quizzes</h1>
         {quiz.map((oneQuiz)=>
         <>
         <h2>Title: {oneQuiz.title}</h2>
@@ -35,4 +35,4 @@ function AllQuizzesPage() {
   )
 }
 
-export default AllQuizzesPage
+export default MyQuizzesPage
