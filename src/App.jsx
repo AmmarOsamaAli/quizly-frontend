@@ -1,4 +1,5 @@
 import { useState } from "react";
+import socket from './services/socket'
 import { Route, Routes } from "react-router";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
@@ -13,17 +14,36 @@ import { useAuth } from "./context/AuthContext";
 import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 import MyQuizzesPage from "./pages/Quiz/MyQuizzesPage";
 function App() {
+
+  useEffect(() => {
+    function onConnect() {
+      console.log("Connected to Socket.IO:", socket.id)
+    }
+    function onDisconnect() {
+      console.log("Disconnected to Socket.IO:", socket.id)
+    }
+
+    socket.on("connect", onConnect)
+    socket.on("Disconnet", onDisconnect)
+
+    return () => {
+      socket.off("connect", onConnect)
+      socket.off("Disconnet", onDisconnect)
+    }
+
+  }, [])
+
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/quizzes" element={<AllQuizzesPage/>} />
-        <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage/></ProtectedRoute>} />
-        <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage/></ProtectedRoute>} />
+        <Route path="/quizzes" element={<AllQuizzesPage />} />
+        <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage /></ProtectedRoute>} />
+        <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage /></ProtectedRoute>} />
       </Routes>
     </div>
   );
