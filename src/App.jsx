@@ -5,6 +5,7 @@ import SignupPage from "./pages/SignupPage";
 import Homepage from "./pages/Homepage";
 import SignInPage from "./pages/SigninPage";
 import Dashboard from "./pages/Dashboard";
+import AllQuizzesPage from "./pages/Quiz/AllQuizzesPage";
 import { useEffect } from "react";
 import { getCurrentUser, logout } from "./services/authService";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/quizzes" element={<AllQuizzesPage/>} />
       </Routes>
     </div>
   );
