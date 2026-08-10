@@ -1,6 +1,7 @@
 import { getMyQuizzes } from '../../services/quizServices'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router'
+import QuizCard from '../../components/QuizCard'
 
 function MyQuizzesPage() {
     const [quiz, setQuiz] = useState([])
@@ -23,11 +24,7 @@ function MyQuizzesPage() {
         <h1>My Quizzes</h1>
         {quiz.map((oneQuiz)=>
         <>
-        <h2>Title: {oneQuiz.title}</h2>
-        <p>{oneQuiz.description}</p>
-        <p>Difficulty: {oneQuiz.difficulty}</p>
-        <p>Category{oneQuiz.category}</p>
-        <p>Visibility: {oneQuiz.visibility}</p>
+        <QuizCard quiz={oneQuiz} key={oneQuiz}/>
         <Link to={`/quizzes/${oneQuiz._id}`} >Quiz Details</Link>
         </>
         )}

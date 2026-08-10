@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getQuizById } from "../../services/quizServices";
 import { useParams, useNavigate } from "react-router";
+import QuizCard from "../../components/QuizCard";
 
 function AllQuizzesPage() {
     const { quizId } = useParams();
@@ -26,13 +27,9 @@ function AllQuizzesPage() {
             <h1>Quiz Details</h1>
             {quiz ? (
                 <>
-                    <h2>Title: {quiz.title}</h2>
-                    <p>{quiz.description}</p>
-                    <p>Difficulty: {quiz.difficulty}</p>
-                    <p>Category{quiz.category}</p>
-                    <p>Visibility: {quiz.visibility}</p>
+                    <QuizCard quiz={quiz} key={quiz}/>
                     <p>Questions: </p>
-                    <ol>
+                    <ol key={quiz.questions._id}>
                         {quiz.questions.map((oneQuestion) => (
                             <>
                                 <li>{oneQuestion.text}</li>
