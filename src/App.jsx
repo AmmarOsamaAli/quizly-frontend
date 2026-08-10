@@ -23,8 +23,17 @@ function App() {
       console.log("Disconnected to Socket.IO:", socket.id)
     }
 
+    function onConnectError(error) {
+      console.log("Socket connection error:", error.message)
+    }
+
     socket.on("connect", onConnect)
     socket.on("Disconnet", onDisconnect)
+    socket.on("connect_error", onConnectError)
+
+    if (!socket.connected) {
+      socket.connect()
+    }
 
     return () => {
       socket.off("connect", onConnect)
