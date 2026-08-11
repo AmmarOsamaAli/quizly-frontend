@@ -12,6 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
 import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 import MyQuizzesPage from "./pages/Quiz/MyQuizzesPage";
+import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/quizzes" element={<AllQuizzesPage/>} />
         <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage/></ProtectedRoute>} />
         <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage/></ProtectedRoute>} />
+        <Route path="/quizzes/create" element={<ProtectedRoute><CreateQuizPage/></ProtectedRoute>} />
       </Routes>
     </div>
   );

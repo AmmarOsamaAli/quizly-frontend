@@ -3,6 +3,7 @@ import { getAllQuizzes } from '../../services/quizServices'
 import { Link } from 'react-router'
 import QuizCard from '../../components/QuizCard'
 
+
 function AllQuizzesPage() {
     const [quiz, setQuiz] = useState([])
 
@@ -25,7 +26,7 @@ function AllQuizzesPage() {
         {quiz.map((oneQuiz)=>
         <div key={oneQuiz._id}>
             <QuizCard quiz={oneQuiz} key={oneQuiz}/>
-            <Link to={`/quizzes/${quiz._id}`} >Quiz Details</Link> 
+            <Link to={`/quizzes/${oneQuiz._id}`} className='quiz-card-action'>Quiz Details</Link> 
         </div>
         )}
     </div>
