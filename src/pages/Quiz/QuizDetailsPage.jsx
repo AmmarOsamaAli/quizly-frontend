@@ -29,7 +29,7 @@ function AllQuizzesPage() {
                 <>
                     <QuizCard quiz={quiz} key={quiz}/>
                     <p>Questions: </p>
-                    <ol key={quiz.questions._id}>
+                    <ol key={quiz._id}>
                         {quiz.questions.map((oneQuestion) => (
                             <>
                                 <li>{oneQuestion.text}</li>

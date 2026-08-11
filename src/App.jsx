@@ -14,6 +14,7 @@ import { useAuth } from "./context/AuthContext";
 import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 import MyQuizzesPage from "./pages/Quiz/MyQuizzesPage";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
+import EditQuizPage from "./pages/Quiz/EditQuizPage";
 function App() {
 
   useEffect(() => {
@@ -55,6 +56,7 @@ function App() {
         <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage/></ProtectedRoute>} />
         <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage/></ProtectedRoute>} />
         <Route path="/quizzes/create" element={<ProtectedRoute><CreateQuizPage/></ProtectedRoute>} />
+        <Route path="/quizzes/:quizId/edit" element={<ProtectedRoute><EditQuizPage/></ProtectedRoute>} />
       </Routes>
     </div>
   );
