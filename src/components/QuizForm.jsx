@@ -14,7 +14,7 @@ function QuizForm({onSubmit, initialData = {}, buttonLabel="Next: Add Question"}
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event){
     event.preventDefault()
     onSubmit({...formData,
         title: formData.title.trim(),
