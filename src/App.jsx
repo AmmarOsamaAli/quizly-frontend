@@ -1,4 +1,5 @@
 import { useState } from "react";
+import socket from './services/socket'
 import { Route, Routes } from "react-router";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/SignupPage";
@@ -14,9 +15,37 @@ import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 import MyQuizzesPage from "./pages/Quiz/MyQuizzesPage";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 function App() {
+
+  useEffect(() => {
+    function onConnect() {
+      console.log("Connected to Socket.IO:", socket.id)
+    }
+    function onDisconnect() {
+      console.log("Disconnected to Socket.IO:", socket.id)
+    }
+
+    function onConnectError(error) {
+      console.log("Socket connection error:", error.message)
+    }
+
+    socket.on("connect", onConnect)
+    socket.on("Disconnet", onDisconnect)
+    socket.on("connect_error", onConnectError)
+
+    if (!socket.connected) {
+      socket.connect()
+    }
+
+    return () => {
+      socket.off("connect", onConnect)
+      socket.off("Disconnet", onDisconnect)
+    }
+
+  }, [])
+
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/sign-up" element={<SignupPage />} />
