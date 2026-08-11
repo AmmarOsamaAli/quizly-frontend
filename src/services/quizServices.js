@@ -16,9 +16,15 @@ async function getMyQuizzes(){
     return response.data
 }
 
+async function createQuiz(body){
+    const response = await api.post('/quizzes', body)
+    return response.data
+}
+
 export {
     getAllQuizzes,
     getQuizById,
-    getMyQuizzes
+    getMyQuizzes,
+    createQuiz
 };
 
