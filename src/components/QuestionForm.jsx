@@ -11,13 +11,13 @@ function QuestionForm({ onSubmit, initialData = null, buttonLabel="Add Question"
     })
     const [error, setError] = useState('')
 
-    const handleChoiceChange = (index, value) => {
+    function handleChoiceChange(index, value){
         const updatedChoices = [...formData.choices]
         updatedChoices[index] = value
         setFormData({...formData, choices: updatedChoices})
     }
 
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault()
 
         const validChoices = formData.choices.filter((choice)=>choice.trim()!=='')
