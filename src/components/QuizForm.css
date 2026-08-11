@@ -1,0 +1,36 @@
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.quiz-form section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.quiz-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.quiz-form input,
+.quiz-form textarea,
+.quiz-form select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.quiz-form button {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #000;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
