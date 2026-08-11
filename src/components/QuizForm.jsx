@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './QuizForm.css'
 
-function QuizForm({onSubmit, initialData = {}}) {
+function QuizForm({onSubmit, initialData = {}, buttonLabel="Next: Add Question"}) {
     const [formData, setFormData] = useState({
         title: initialData.title || '',
         description: initialData.description || '',
@@ -15,8 +15,11 @@ function QuizForm({onSubmit, initialData = {}}) {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault(),
-    onSubmit(formData)
+    event.preventDefault()
+    onSubmit({...formData,
+        title: formData.title.trim(),
+        description: formData.description.trim()
+    })
   }
   return (
     <form onSubmit={handleSubmit} className='quiz-form'>
@@ -80,7 +83,7 @@ function QuizForm({onSubmit, initialData = {}}) {
                 <option value="Private">Private</option>
             </select>
         </section>
-        <button>Next: Add Questions</button>
+        <button>{buttonLabel}</button>
     </form>
   )
 }
