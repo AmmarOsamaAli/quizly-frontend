@@ -1,4 +1,3 @@
-import { useState } from "react";
 import socket from './services/socket'
 import { Route, Routes } from "react-router";
 import Navbar from "./components/Navbar";
@@ -8,7 +7,6 @@ import SignInPage from "./pages/SigninPage";
 import Dashboard from "./pages/Dashboard";
 import AllQuizzesPage from "./pages/Quiz/AllQuizzesPage";
 import { useEffect } from "react";
-import { getCurrentUser, logout } from "./services/authService";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./context/AuthContext";
 import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
@@ -88,7 +86,7 @@ function App() {
         <Route path="/games/:gameId/results" element={<ProtectedRoute><GameResultsPage /></ProtectedRoute>} />
         <Route path="/games/:gameId/host" element={<ProtectedRoute><HostGamePage /></ProtectedRoute>} />
         <Route path="/quizzes/:quizId/questions/add" element={<ProtectedRoute><AddQuestionPage /></ProtectedRoute>} />
-        <Route path="/quizzes/:quizId/questions/:questionId/edit" element={<ProtectedRoute><EditQuestionPage/></ProtectedRoute>} />
+        <Route path="/quizzes/:quizId/questions/:questionId/edit" element={<ProtectedRoute><EditQuestionPage /></ProtectedRoute>} />
       </Routes>
     </div>
   );
