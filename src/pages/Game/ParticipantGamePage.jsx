@@ -4,7 +4,6 @@ import { getGameById, submitAnswer } from '../../services/gameService'
 import socket from '../../services/socket'
 
 function ParticipantGamePage() {
-
     const [game, setGame] = useState(null)
     const [players, setPlayers] = useState([])
     const [currentQuestion, setCurrentQuestion] = useState(null)
@@ -20,7 +19,6 @@ function ParticipantGamePage() {
     const { gameId } = useParams()
     const navigate = useNavigate()
 
-
     async function handleAnswer(choice) {
         if (hasAnswered || submitting) {
             return
@@ -32,16 +30,13 @@ function ParticipantGamePage() {
 
         try {
             await submitAnswer(gameId, { selectedAnswer: choice })
-
             setHasAnswered(true)
-
         } catch (error) {
             setSelectedAnswer(null)
             setAnswerError(error.response?.data?.message || "Could not submit answer")
         } finally {
             setSubmitting(false)
         }
-
     }
 
     useEffect(() => {
@@ -51,13 +46,12 @@ function ParticipantGamePage() {
 
         function updateTimer() {
             const startedAt = new Date(currentQuestion.startedAt).getTime()
-
             const endTime = startedAt + currentQuestion.timeLimit * 1000
-
             const remainingMilliseconds = endTime - Date.now()
 
             const remainingSeconds = Math.max(
-                Math.ceil(remainingMilliseconds / 1000), 0
+                Math.ceil(remainingMilliseconds / 1000),
+                0
             )
 
             setTimeLeft(remainingSeconds)
@@ -72,7 +66,6 @@ function ParticipantGamePage() {
         return () => {
             clearInterval(timer)
         }
-
     }, [currentQuestion])
 
     useEffect(() => {
@@ -135,7 +128,6 @@ function ParticipantGamePage() {
         socket.emit("joinGameRoom", gameId)
 
         return () => {
-
             socket.off("lobbyPlayers", handleLobbyPlayers)
             socket.off("gameRoomError", handleGameRoomError)
             socket.off("questionStarted", handleQuestionStarted)
@@ -143,7 +135,6 @@ function ParticipantGamePage() {
             socket.off("gameFinished", handleGameFinished)
             socket.off("gameCancelled", handleGameCanceled)
         }
-
     }, [gameId, navigate])
 
     useEffect(() => {
@@ -155,70 +146,49 @@ function ParticipantGamePage() {
                 setError(error.response?.data?.message)
             } finally {
                 setLoading(false)
-
             }
         }
-        loadGame()
 
+        loadGame()
     }, [gameId])
 
-    const answerStyles = [
-        "bg-indigo-500 hover:bg-indigo-600",
-        "bg-cyan-500 hover:bg-cyan-600",
-        "bg-rose-500 hover:bg-rose-600",
-        "bg-amber-500 hover:bg-amber-600"
-    ]
-
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-8 text-white">
+        <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-8 text-slate-900">
             <div className="mx-auto max-w-6xl">
 
                 {game?.status === "Waiting" && (
-                    <div className="flex min-h-[80vh] flex-col items-center justify-center">
-                        <p className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-cyan-300">
-                            Game Lobby
+                    <div className="flex min-h-[75vh] flex-col items-center justify-center">
+                        <h1 className="text-center text-4xl font-bold sm:text-5xl">Get ready to play</h1>
+
+                        <p className="mt-3 text-center text-slate-500">
+                            Waiting for the host to start the game.
                         </p>
 
-                        <h1 className="text-center text-4xl font-black tracking-tight sm:text-5xl">
-                            Get ready to play
-                        </h1>
+                        <div className="mt-10 rounded-xl border border-slate-200 bg-white px-10 py-7 text-center shadow-sm">
+                            <p className="text-sm font-medium text-slate-500">Game Code</p>
 
-                        <p className="mt-3 text-center text-slate-300">
-                            Waiting for the host to start the game
-                        </p>
-
-                        <div className="mt-10 rounded-3xl border border-white/10 bg-white/10 px-10 py-7 text-center shadow-2xl backdrop-blur-xl">
-                            <p className="text-sm font-semibold uppercase tracking-widest text-slate-300">
-                                Game Code
-                            </p>
-
-                            <p className="mt-2 text-5xl font-black tracking-[0.18em] text-cyan-300 sm:text-6xl">
+                            <p className="mt-2 text-5xl font-bold tracking-[0.18em] text-indigo-600 sm:text-6xl">
                                 {game.code}
                             </p>
                         </div>
 
                         <div className="mt-10 w-full max-w-4xl">
                             <div className="mb-5 flex items-center justify-between">
-                                <h2 className="text-2xl font-black">
-                                    Players
-                                </h2>
+                                <h2 className="text-2xl font-semibold">Players</h2>
 
-                                <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-300">
+                                <span className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600">
                                     {players.length} joined
                                 </span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
                                 {players.map((player) => (
-                                    <div
-                                        key={player._id}
-                                        className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 p-4 shadow-lg backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/15"
-                                    >
-                                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-cyan-400 to-indigo-500 text-lg font-black text-white">
+                                    <div key={player._id} className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+                                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 font-semibold text-indigo-700">
                                             {player.username.charAt(0).toUpperCase()}
                                         </div>
 
-                                        <p className="truncate font-bold">
+                                        <p className="truncate font-medium">
                                             {player.username}
                                         </p>
                                     </div>
@@ -226,225 +196,173 @@ function ParticipantGamePage() {
                             </div>
 
                             {players.length === 0 && (
-                                <div className="rounded-2xl border border-dashed border-white/20 bg-white/5 p-8 text-center text-slate-400">
-                                    No players have joined yet
+                                <div className="rounded-lg border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
+                                    No players have joined yet.
                                 </div>
                             )}
                         </div>
 
-                        <div className="mt-10 flex items-center gap-3 rounded-full bg-white/5 px-5 py-3 text-sm text-slate-300">
-                            <span className="h-3 w-3 animate-pulse rounded-full bg-cyan-400"></span>
+                        <div className="mt-8 flex items-center gap-3 text-sm text-slate-500">
+                            <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-indigo-600" />
                             Waiting for host...
                         </div>
                     </div>
                 )}
 
                 {game?.status === "Active" && currentQuestion && (
-                    <div className="flex min-h-[80vh] flex-col justify-center">
+                    <div className="flex min-h-[75vh] flex-col justify-center">
 
                         <div className="mb-6 flex items-center justify-between gap-4">
-                            <div className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold text-cyan-300 backdrop-blur-md">
+                            <span className="text-sm font-medium text-slate-500">
                                 Question {currentQuestion.currentQuestionIndex + 1} of {currentQuestion.totalQuestions}
-                            </div>
+                            </span>
 
-                            <div
-                                className={`flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-4 text-2xl font-black shadow-xl transition-all ${timeLeft <= 5
-                                    ? "border-red-400 bg-red-500/20 text-red-300"
-                                    : "border-cyan-400 bg-cyan-400/10 text-cyan-300"
-                                    }`}
-                            >
+                            <div className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full border-2 text-xl font-bold ${timeLeft <= 5 ? "border-red-500 text-red-600" : "border-indigo-600 text-indigo-600"}`}>
                                 {timeLeft}
                             </div>
                         </div>
 
-                        <div className="rounded-3xl border border-white/10 bg-white/10 px-6 py-10 text-center shadow-2xl backdrop-blur-xl sm:px-12 sm:py-14">
-                            <p className="mb-3 text-sm font-bold uppercase tracking-widest text-slate-400">
+                        <div className="rounded-xl border border-slate-200 bg-white px-6 py-10 text-center shadow-sm sm:px-12 sm:py-12">
+                            <p className="text-sm font-medium text-slate-500">
                                 Choose the correct answer
                             </p>
 
-                            <h1 className="text-3xl font-black leading-tight sm:text-5xl">
+                            <h1 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl">
                                 {currentQuestion.text}
                             </h1>
                         </div>
 
-                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                            {currentQuestion.choices.map((choice, index) => (
+                                <button key={index} onClick={() => handleAnswer(choice)} disabled={hasAnswered || submitting || timeLeft <= 0} className="min-h-24 rounded-lg border border-slate-300 bg-white px-6 py-5 text-lg font-semibold text-slate-800 transition hover:border-indigo-400 hover:bg-indigo-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-white">
+                                    <span className="mr-3 inline-flex h-7 w-7 items-center justify-center rounded-md bg-slate-100 text-sm font-semibold text-slate-600">
+                                        {String.fromCharCode(65 + index)}
+                                    </span>
 
-                            {currentQuestion.choices.map((choice, index) => {
-                                const answerClasses = [
-                                    "from-indigo-500 to-violet-600 hover:from-indigo-400 hover:to-violet-500",
-                                    "from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500",
-                                    "from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500",
-                                    "from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400"
-                                ]
-
-                                return (
-                                    <button
-                                        key={index}
-                                        onClick={() => handleAnswer(choice)}
-                                        disabled={hasAnswered || submitting || timeLeft <= 0}
-                                        className={`
-                                        min-h-28 rounded-3xl
-                                        bg-linear-to-br
-                                        px-6 py-6
-                                        text-lg font-black text-white
-                                        shadow-xl
-                                        transition-all duration-200
-                                        hover:-translate-y-1
-                                        hover:scale-[1.01]
-                                        hover:shadow-2xl
-                                        disabled:cursor-not-allowed
-                                        disabled:opacity-40
-                                        disabled:hover:translate-y-0
-                                        disabled:hover:scale-100
-                                        ${answerClasses[index % answerClasses.length]}
-                                    `}
-                                    >
-                                        <span className="mr-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-black/15 text-sm">
-                                            {String.fromCharCode(65 + index)}
-                                        </span>
-
-                                        {choice}
-                                    </button>
-                                )
-                            })}
+                                    {choice}
+                                </button>
+                            ))}
                         </div>
 
-                        <div className="mt-7 text-center">
-
+                        <div className="mt-6 text-center">
                             {answerError && (
-                                <div className="mx-auto max-w-lg rounded-2xl border border-red-400/20 bg-red-400/10 px-4 py-3 font-semibold text-red-300">
+                                <div className="mx-auto max-w-lg rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
                                     {answerError}
                                 </div>
                             )}
 
                             {submitting && (
-                                <div className="inline-flex items-center gap-3 rounded-full bg-white/10 px-5 py-3 text-slate-300 backdrop-blur-md">
-                                    <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan-400"></span>
+                                <div className="inline-flex items-center gap-3 text-sm text-slate-500">
+                                    <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-indigo-600" />
                                     Submitting answer...
                                 </div>
                             )}
 
                             {hasAnswered && (
-                                <div className="inline-flex items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-5 py-3 font-bold text-emerald-300">
-                                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-400 text-sm text-slate-950">
-                                        ✓
-                                    </span>
-
-                                    Answer submitted. Waiting for other players...
+                                <div className="inline-flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                                    ✓ Answer submitted. Waiting for other players...
                                 </div>
                             )}
                         </div>
+
                     </div>
                 )}
 
                 {game?.status === "Results" && questionResult && (
-                    <div className="flex min-h-[80vh] items-center justify-center">
-                        <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-white/10 p-8 text-center shadow-2xl backdrop-blur-xl sm:p-12">
+                    <div className="flex min-h-[75vh] items-center justify-center">
+                        <div className="w-full max-w-2xl rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm sm:p-10">
 
                             {selectedAnswer ? (
                                 selectedAnswer === questionResult.correctAnswer ? (
                                     <>
-                                        <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-emerald-400 bg-emerald-400/15 text-5xl font-black text-emerald-300 shadow-lg">
+                                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-3xl font-bold text-emerald-700">
                                             ✓
                                         </div>
 
-                                        <p className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-emerald-300">
-                                            Nice work
-                                        </p>
-
-                                        <h1 className="mt-2 text-5xl font-black text-white">
-                                            Correct!
+                                        <h1 className="mt-5 text-4xl font-bold text-emerald-700">
+                                            Correct
                                         </h1>
                                     </>
                                 ) : (
                                     <>
-                                        <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-red-400 bg-red-400/15 text-5xl font-black text-red-300 shadow-lg">
+                                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-3xl font-bold text-red-700">
                                             ✕
                                         </div>
 
-                                        <p className="mt-6 text-sm font-bold uppercase tracking-[0.25em] text-red-300">
-                                            Not quite
-                                        </p>
-
-                                        <h1 className="mt-2 text-5xl font-black text-white">
+                                        <h1 className="mt-5 text-4xl font-bold text-red-700">
                                             Incorrect
                                         </h1>
                                     </>
                                 )
                             ) : (
                                 <>
-                                    <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border-4 border-amber-400 bg-amber-400/15 text-4xl font-black text-amber-300 shadow-lg">
+                                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-xl font-bold text-amber-700">
                                         0
                                     </div>
 
-                                    <h1 className="mt-6 text-4xl font-black">
-                                        Time's Up!
+                                    <h1 className="mt-5 text-4xl font-bold">
+                                        Time&apos;s Up
                                     </h1>
 
-                                    <p className="mt-2 text-slate-400">
+                                    <p className="mt-2 text-slate-500">
                                         You did not submit an answer in time.
                                     </p>
                                 </>
                             )}
 
                             {selectedAnswer && (
-                                <div className="mt-8 rounded-2xl bg-black/15 p-5">
-                                    <p className="text-sm font-semibold uppercase tracking-widest text-slate-400">
-                                        Your Answer
-                                    </p>
+                                <div className="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-5">
+                                    <p className="text-sm font-medium text-slate-500">Your Answer</p>
 
-                                    <p className="mt-2 text-xl font-black">
+                                    <p className="mt-2 text-xl font-semibold">
                                         {selectedAnswer}
                                     </p>
                                 </div>
                             )}
 
-                            <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
-                                <p className="text-sm font-semibold uppercase tracking-widest text-cyan-300">
-                                    Correct Answer
-                                </p>
+                            <div className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-5">
+                                <p className="text-sm font-medium text-emerald-700">Correct Answer</p>
 
-                                <p className="mt-2 text-2xl font-black text-white">
+                                <p className="mt-2 text-xl font-semibold text-emerald-800">
                                     {questionResult.correctAnswer}
                                 </p>
                             </div>
 
-                            <div className="mt-8 flex items-center justify-center gap-3 text-sm text-slate-400">
-                                <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan-400"></span>
+                            <div className="mt-7 flex items-center justify-center gap-3 text-sm text-slate-500">
+                                <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-indigo-600" />
                                 Next question starting soon...
                             </div>
+
                         </div>
                     </div>
                 )}
 
                 {game?.status === "Cancelled" && (
-                    <div className="flex min-h-[80vh] items-center justify-center">
-                        <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur-xl">
+                    <div className="flex min-h-[75vh] items-center justify-center">
+                        <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
 
-                            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-400/10 text-4xl text-red-300">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-2xl font-bold text-red-700">
                                 ✕
                             </div>
 
-                            <h1 className="mt-6 text-4xl font-black">
+                            <h1 className="mt-5 text-3xl font-bold">
                                 Game Cancelled
                             </h1>
 
-                            <p className="mt-3 text-slate-400">
+                            <p className="mt-3 text-slate-500">
                                 {error || "The host cancelled this game."}
                             </p>
 
-                            <button
-                                onClick={() => navigate("/")}
-                                className="mt-8 rounded-xl bg-white px-6 py-3 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
-                            >
+                            <button onClick={() => navigate("/")} className="mt-7 rounded-md bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700">
                                 Return Home
                             </button>
+
                         </div>
                     </div>
                 )}
 
             </div>
-        </div>
+        </main>
     )
 }
 

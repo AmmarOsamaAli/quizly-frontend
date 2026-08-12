@@ -5,84 +5,51 @@ function Dashboard() {
   const { user } = useAuth()
 
   return (
-    <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+    <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-12 text-slate-900">
       <div className="mx-auto max-w-6xl">
 
-        <div className="rounded-3xl border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur-xl sm:p-10">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-            Dashboard
-          </p>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold sm:text-5xl">Welcome, {user.username}</h1>
 
-          <h1 className="mt-3 text-4xl font-black sm:text-5xl">
-            Welcome, {user.username}
-          </h1>
-
-          <p className="mt-3 max-w-2xl text-slate-400">
+          <p className="mt-3 max-w-2xl text-slate-600">
             Create quizzes, join live games, or manage the quizzes you already made.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3">
 
-          <Link
-            to="/quizzes"
-            className="group rounded-3xl border border-white/10 bg-white/5 p-7 transition hover:-translate-y-1 hover:bg-white/10"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500 text-xl font-black">
-              Q
-            </div>
+          <Link to="/quizzes" className="group rounded-xl border border-slate-200 bg-white p-6 transition hover:border-slate-300 hover:shadow-sm">
+            <h2 className="text-xl font-semibold">Browse Quizzes</h2>
 
-            <h2 className="mt-5 text-xl font-black">
-              Browse Quizzes
-            </h2>
-
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 leading-7 text-slate-600">
               Explore available public quizzes and find one to play.
             </p>
 
-            <p className="mt-5 font-bold text-cyan-300 transition group-hover:translate-x-1">
+            <p className="mt-5 text-sm font-semibold text-indigo-600">
               View quizzes →
             </p>
           </Link>
 
-          <Link
-            to="/quizzes/my-quizzes"
-            className="group rounded-3xl border border-white/10 bg-white/5 p-7 transition hover:-translate-y-1 hover:bg-white/10"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-500 text-xl font-black text-slate-950">
-              M
-            </div>
+          <Link to="/quizzes/my-quizzes" className="group rounded-xl border border-slate-200 bg-white p-6 transition hover:border-slate-300 hover:shadow-sm">
+            <h2 className="text-xl font-semibold">My Quizzes</h2>
 
-            <h2 className="mt-5 text-xl font-black">
-              My Quizzes
-            </h2>
-
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 leading-7 text-slate-600">
               View and manage the quizzes you have created.
             </p>
 
-            <p className="mt-5 font-bold text-cyan-300 transition group-hover:translate-x-1">
+            <p className="mt-5 text-sm font-semibold text-indigo-600">
               Manage quizzes →
             </p>
           </Link>
 
-          <Link
-            to="/games/join"
-            className="group rounded-3xl border border-white/10 bg-white/5 p-7 transition hover:-translate-y-1 hover:bg-white/10"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-500 text-xl font-black">
-              ▶
-            </div>
+          <Link to="/games/join" className="group rounded-xl border border-slate-200 bg-white p-6 transition hover:border-slate-300 hover:shadow-sm">
+            <h2 className="text-xl font-semibold">Join a Game</h2>
 
-            <h2 className="mt-5 text-xl font-black">
-              Join a Game
-            </h2>
-
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 leading-7 text-slate-600">
               Enter a game code and compete with other players live.
             </p>
 
-            <p className="mt-5 font-bold text-cyan-300 transition group-hover:translate-x-1">
+            <p className="mt-5 text-sm font-semibold text-indigo-600">
               Join now →
             </p>
           </Link>

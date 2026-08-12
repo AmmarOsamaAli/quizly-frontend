@@ -11,9 +11,11 @@ function CreateQuizPage() {
   const [quizInfo, setQuizInfo] = useState(null)
   const [questions, setQuestions] = useState([])
   const [error, setError] = useState('')
+  const [step, setStep] = useState(1)
 
   function handleQuizInfoSubmit(formData) {
     setQuizInfo(formData)
+    setStep(2)
     setError('')
   }
 
@@ -49,68 +51,46 @@ function CreateQuizPage() {
   }
 
   return (
-    <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+    <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-12 text-slate-900">
       <div className="mx-auto max-w-5xl">
 
         <div className="mb-10">
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-            Quiz Builder
-          </p>
+          <h1 className="text-4xl font-bold sm:text-5xl">Create New Quiz</h1>
 
-          <h1 className="mt-2 text-4xl font-black sm:text-5xl">
-            Create New Quiz
-          </h1>
-
-          <p className="mt-3 max-w-2xl text-slate-400">
-            Set up your quiz details, add questions, and publish when you're ready.
+          <p className="mt-3 max-w-2xl text-slate-600">
+            Set up your quiz details, add questions, and create it when you're ready.
           </p>
         </div>
 
         <div className="mb-10 flex items-center gap-3">
-          <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full font-black ${!quizInfo
-                ? 'bg-cyan-400 text-slate-950'
-                : 'bg-emerald-400 text-slate-950'
-              }`}
-          >
-            {!quizInfo ? '1' : '✓'}
+          <div className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${step === 1 ? 'bg-indigo-600 text-white' : 'bg-emerald-600 text-white'}`}>
+            {step === 1 ? '1' : '✓'}
           </div>
 
-          <div className="h-px flex-1 bg-white/10" />
+          <div className="h-px flex-1 bg-slate-300" />
 
-          <div
-            className={`flex h-10 w-10 items-center justify-center rounded-full font-black ${quizInfo
-                ? 'bg-cyan-400 text-slate-950'
-                : 'bg-white/10 text-slate-500'
-              }`}
-          >
+          <div className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${step === 2 ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}`}>
             2
           </div>
         </div>
 
         {error && (
-          <div className="mb-6 rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-4 font-semibold text-red-300">
+          <div className="mb-6 rounded-md border border-red-200 bg-red-50 px-4 py-3 font-medium text-red-700">
             {error}
           </div>
         )}
 
-        {!quizInfo ? (
-          <section className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+        {step === 1 ? (
+          <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="mb-7">
-              <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">
-                Step 1
-              </p>
+              <h2 className="text-2xl font-semibold">Quiz Details</h2>
 
-              <h2 className="mt-2 text-2xl font-black">
-                Quiz Details
-              </h2>
-
-              <p className="mt-2 text-slate-400">
+              <p className="mt-2 text-slate-600">
                 Give your quiz a title and configure its basic information.
               </p>
             </div>
 
-            <QuizForm onSubmit={handleQuizInfoSubmit} />
+            <QuizForm onSubmit={handleQuizInfoSubmit} initialData={quizInfo || {}} />
           </section>
         ) : (
           <section>
@@ -118,17 +98,11 @@ function CreateQuizPage() {
 
               <div>
                 <div className="sticky top-6">
-                  <p className="mb-3 text-sm font-bold uppercase tracking-widest text-cyan-300">
-                    Quiz Summary
-                  </p>
+                  <h2 className="mb-3 text-lg font-semibold">Quiz Summary</h2>
 
                   <QuizCard quiz={quizInfo} />
 
-                  <button
-                    type="button"
-                    onClick={() => setQuizInfo(null)}
-                    className="mt-4 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 font-bold text-slate-300 transition hover:bg-white/10 hover:text-white"
-                  >
+                  <button type="button" onClick={() => setStep(1)} className="mt-4 w-full rounded-md border border-slate-300 bg-white px-4 py-3 font-medium text-slate-700 transition hover:bg-slate-100">
                     Edit Quiz Details
                   </button>
                 </div>
@@ -136,64 +110,46 @@ function CreateQuizPage() {
 
               <div className="space-y-6">
 
-                <div className="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur-xl sm:p-8">
+                <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
                   <div className="mb-6">
-                    <p className="text-sm font-bold uppercase tracking-widest text-cyan-300">
-                      Step 2
-                    </p>
+                    <h2 className="text-2xl font-semibold">Add Questions</h2>
 
-                    <h2 className="mt-2 text-2xl font-black">
-                      Add Questions
-                    </h2>
-
-                    <p className="mt-2 text-slate-400">
+                    <p className="mt-2 text-slate-600">
                       Add at least one question before creating the quiz.
                     </p>
                   </div>
 
-                  <QuestionForm
-                    onSubmit={handleAddQuestion}
-                    buttonLabel="+ Add Question"
-                  />
+                  <QuestionForm onSubmit={handleAddQuestion} buttonLabel="+ Add Question" />
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
+                <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
                   <div className="mb-5 flex items-center justify-between">
-                    <h3 className="text-xl font-black">
-                      Added Questions
-                    </h3>
+                    <h3 className="text-xl font-semibold">Added Questions</h3>
 
-                    <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-300">
+                    <span className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600">
                       {questions.length}
                     </span>
                   </div>
 
                   {questions.length === 0 ? (
-                    <div className="rounded-2xl border border-dashed border-white/15 p-8 text-center text-slate-500">
+                    <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-slate-500">
                       No questions added yet.
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {questions.map((oneQuestion, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-4"
-                        >
+                        <div key={index} className="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
                           <div className="min-w-0">
-                            <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">
+                            <p className="text-xs font-medium text-slate-500">
                               Question {index + 1}
                             </p>
 
-                            <p className="mt-1 font-bold">
+                            <p className="mt-1 font-medium text-slate-900">
                               {oneQuestion.text}
                             </p>
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveQuestion(index)}
-                            className="shrink-0 rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-2 text-sm font-bold text-red-300 transition hover:bg-red-400/20"
-                          >
+                          <button type="button" onClick={() => handleRemoveQuestion(index)} className="shrink-0 rounded-md border border-red-200 bg-white px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50">
                             Delete
                           </button>
                         </div>
@@ -202,12 +158,7 @@ function CreateQuizPage() {
                   )}
                 </div>
 
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  disabled={questions.length === 0}
-                  className="w-full rounded-2xl bg-cyan-400 px-6 py-4 text-lg font-black text-slate-950 shadow-xl transition hover:-translate-y-1 hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0"
-                >
+                <button type="button" onClick={handleSubmit} disabled={questions.length === 0} className="w-full rounded-md bg-indigo-600 px-6 py-4 text-lg font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40">
                   Create Quiz
                 </button>
 

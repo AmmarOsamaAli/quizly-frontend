@@ -3,40 +3,45 @@ import { useAuth } from '../context/AuthContext'
 import { Button } from './ui/button'
 
 function Navbar() {
-
   const { logout, user } = useAuth()
 
   return (
-    <nav className="border-b border-white/10 bg-slate-950 px-4 py-4 text-white">
+    <nav className="border-b border-slate-200 bg-white px-4 py-4">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
 
         <Link to="/" className="flex items-center">
-          <h2 className="text-2xl font-black tracking-tight text-cyan-300"> Quizly </h2>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900">Quizly</h2>
         </Link>
 
         <div className="flex items-center gap-2 sm:gap-3">
 
-          <Link to="/quizzes" className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white sm:px-4">
+          <Link to="/quizzes" className="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
             All Quizzes
           </Link>
 
           {user && (
-            <Link to="/quizzes/my-quizzes" className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white sm:px-4">
-              My Quizzes
-            </Link>
+            <>
+              <Link to="/quizzes/my-quizzes" className="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
+                My Quizzes
+              </Link>
+
+              <Link to="/quizzes/create" className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
+                Create Quiz
+              </Link>
+            </>
           )}
 
           {user ? (
-            <Button onClick={logout} className="rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-2 font-bold text-red-300 transition hover:bg-red-400/20!">
+            <Button onClick={logout} variant="ghost" className="rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900">
               Sign Out
             </Button>
           ) : (
             <>
-              <Link to="/sign-in" className="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white sm:px-4">
+              <Link to="/sign-in" className="rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900">
                 Sign In
               </Link>
 
-              <Link to="/sign-up" className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-black text-slate-950 transition hover:bg-cyan-300">
+              <Link to="/sign-up" className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
                 Sign Up
               </Link>
             </>
