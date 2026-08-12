@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getQuizById } from "../../services/quizServices";
+import { deleteQuestion, getQuizById } from "../../services/quizServices";
 import { createGame } from "@/services/gameService";
 import { useParams, useNavigate } from "react-router";
 import QuizCard from "../../components/QuizCard";
@@ -34,6 +34,15 @@ function QuizDetailsPage() {
     useEffect(() => {
         loadQuizzes();
     }, []);
+
+    async function handleDeleteQuestion(questionId){
+        try{
+            await deleteQuestion(quiz._id, questionId)
+            setQuiz({...quiz, questions: quiz.questions.filter(q=>q._id !== questionId)})
+        }catch(error){
+            setError(error.message)
+        }
+    }
 
     async function handleHostGame() {
         if (hosting) {
@@ -92,10 +101,10 @@ function QuizDetailsPage() {
                                         <TableCell className="font-medium">Q{i + 1}: {e.text}</TableCell>
                                         <TableCell className="text-right">
                                             <div className="flex justify-end items-center gap-3">
-                                                <Button>
+                                                <Button onClick={()=>{navigate(`/quizzes/${quiz._id}/questions/${e._id}/edit`)}}>
                                                     Edit
                                                 </Button>
-                                                <Button className="bg-red-400 hover:bg-red-300">
+                                                <Button className="bg-red-400 hover:bg-red-300" onClick={()=>{handleDeleteQuestion(e._id)}}>
                                                     Delete
                                                 </Button>
                                             </div>
@@ -104,7 +113,7 @@ function QuizDetailsPage() {
                                 )
                             })}
                         </TableBody>
-                        <button onClick={() => { navigate(`/quizzes/${quiz._id}/questions`) }}>Add Question</button>
+                        <button onClick={() => { navigate(`/quizzes/${quiz._id}/questions/add`) }}>Add Question</button>
                     </Table>
                 </>
             ) : (
