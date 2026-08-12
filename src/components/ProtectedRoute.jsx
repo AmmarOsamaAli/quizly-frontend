@@ -6,10 +6,10 @@ function ProtectedRoute({ children }) {
 
     if (loading) {
         return (
-            <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 text-white">
+            <main className="min-h-[calc(100vh-73px)] bg-slate-50 text-slate-900">
                 <div className="flex min-h-[70vh] items-center justify-center">
-                    <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-6 py-3 text-slate-300 backdrop-blur-xl">
-                        <span className="h-3 w-3 animate-pulse rounded-full bg-cyan-400" />
+                    <div className="flex items-center gap-3 rounded-md border border-slate-200 bg-white px-5 py-3 text-slate-600 shadow-sm">
+                        <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-indigo-600" />
                         Loading...
                     </div>
                 </div>

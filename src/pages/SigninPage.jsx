@@ -52,75 +52,41 @@ const SignInForm = () => {
   }
 
   return (
-    <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
-      <div className="mx-auto flex min-h-[75vh] max-w-6xl items-center justify-center">
+    <main className="h-[calc(100dvh-73px)] overflow-hidden bg-slate-50 px-4">
+      <div className="mx-auto flex h-full max-w-6xl items-center justify-center">
 
-        <form
-          onSubmit={handleSubmit}
-          className="w-full max-w-md"
-        >
-          <Card className="border-white/10 bg-white/10 text-white shadow-2xl backdrop-blur-xl">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
+          <Card className="border border-slate-200 bg-white text-slate-900 shadow-sm">
 
-            <CardHeader className="space-y-3 text-center">
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-                Welcome Back
-              </p>
+            <CardHeader className="space-y-4 text-center">
+              <CardTitle className="text-3xl font-bold">Sign in to Quizly</CardTitle>
 
-              <CardTitle className="text-3xl font-black">
-                Sign in to Quizly
-              </CardTitle>
-
-              <CardDescription className="text-slate-400">
+              <CardDescription className="text-slate-500">
                 Enter your username and password to continue.
               </CardDescription>
             </CardHeader>
 
             <CardContent>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-7">
 
                 <div className="grid gap-2">
-                  <Label
-                    htmlFor="username"
-                    className="font-semibold text-slate-300"
-                  >
+                  <Label htmlFor="username" className="font-medium text-slate-700">
                     Username
                   </Label>
 
-                  <Input
-                    type="text"
-                    autoComplete="off"
-                    id="username"
-                    value={formData.username}
-                    name="username"
-                    onChange={handleChange}
-                    required
-                    placeholder="e.g. RonaldoSui"
-                    className="h-12 border-white/10 bg-black/20 text-white placeholder:text-slate-600 focus-visible:border-cyan-400 focus-visible:ring-cyan-400/20"
-                  />
+                  <Input type="text" autoComplete="off" id="username" value={formData.username} name="username" onChange={handleChange} required placeholder="e.g. RonaldoSui" className="h-12 border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/20" />
                 </div>
 
                 <div className="grid gap-2">
-                  <Label
-                    htmlFor="password"
-                    className="font-semibold text-slate-300"
-                  >
+                  <Label htmlFor="password" className="font-medium text-slate-700">
                     Password
                   </Label>
 
-                  <Input
-                    type="password"
-                    autoComplete="off"
-                    id="password"
-                    value={formData.password}
-                    name="password"
-                    onChange={handleChange}
-                    required
-                    className="h-12 border-white/10 bg-black/20 text-white focus-visible:border-cyan-400 focus-visible:ring-cyan-400/20"
-                  />
+                  <Input type="password" autoComplete="off" id="password" value={formData.password} name="password" onChange={handleChange} required className="h-12 border-slate-300 bg-white text-slate-900 focus-visible:border-indigo-500 focus-visible:ring-indigo-500/20" />
                 </div>
 
                 {error && (
-                  <div className="rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-3 text-center text-sm font-semibold text-red-300">
+                  <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-medium text-red-700">
                     {error}
                   </div>
                 )}
@@ -128,24 +94,14 @@ const SignInForm = () => {
               </div>
             </CardContent>
 
-            <CardFooter className="flex flex-col gap-3">
-
-              <Button
-                type="submit"
-                className="h-12 w-full rounded-xl bg-cyan-400 font-black text-slate-950 transition hover:bg-cyan-300"
-              >
+            <CardFooter className="flex flex-col gap-5 border-t-0 bg-transparent pt-2">
+              <Button type="submit" className="h-12 w-full rounded-md bg-indigo-600 font-semibold text-white transition hover:bg-indigo-700">
                 Sign In
               </Button>
 
-              <Button
-                type="button"
-                variant="ghost"
-                className="h-12 w-full rounded-xl text-slate-300 hover:bg-white/10 hover:text-white"
-                onClick={() => navigate('/sign-up')}
-              >
+              <Button type="button" variant="ghost" className="h-12 w-full rounded-md text-slate-600 hover:bg-slate-100 hover:text-slate-900" onClick={() => navigate('/sign-up')}>
                 Create an Account
               </Button>
-
             </CardFooter>
 
           </Card>

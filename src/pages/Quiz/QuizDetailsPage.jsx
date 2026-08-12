@@ -72,9 +72,7 @@ function QuizDetailsPage() {
 
             setQuiz({
                 ...quiz,
-                questions: quiz.questions.filter(
-                    (q) => q._id !== questionId
-                )
+                questions: quiz.questions.filter((q) => q._id !== questionId)
             })
         } catch (error) {
             setError(
@@ -108,10 +106,10 @@ function QuizDetailsPage() {
 
     if (loading) {
         return (
-            <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+            <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-12 text-slate-900">
                 <div className="flex min-h-[70vh] items-center justify-center">
-                    <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-6 py-3 text-slate-300 backdrop-blur-xl">
-                        <span className="h-3 w-3 animate-pulse rounded-full bg-cyan-400" />
+                    <div className="flex items-center gap-3 rounded-md border border-slate-200 bg-white px-5 py-3 text-slate-600 shadow-sm">
+                        <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-indigo-600" />
                         Loading quiz...
                     </div>
                 </div>
@@ -121,25 +119,16 @@ function QuizDetailsPage() {
 
     if (!quiz) {
         return (
-            <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+            <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-12 text-slate-900">
                 <div className="flex min-h-[70vh] items-center justify-center">
-                    <div className="w-full max-w-lg rounded-3xl border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur-xl">
-                        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl">
-                            ?
-                        </div>
+                    <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+                        <h1 className="text-2xl font-semibold">Quiz Not Found</h1>
 
-                        <h1 className="mt-5 text-3xl font-black">
-                            Quiz Not Found
-                        </h1>
-
-                        <p className="mt-2 text-slate-400">
+                        <p className="mt-2 text-slate-500">
                             This quiz could not be found.
                         </p>
 
-                        <Button
-                            onClick={() => navigate("/quizzes")}
-                            className="mt-7 rounded-xl bg-cyan-400 px-6 font-black text-slate-950 hover:bg-cyan-300"
-                        >
+                        <Button onClick={() => navigate("/quizzes")} className="mt-6 rounded-md bg-indigo-600 px-6 font-semibold text-white hover:bg-indigo-700">
                             Back to Quizzes
                         </Button>
                     </div>
@@ -149,109 +138,77 @@ function QuizDetailsPage() {
     }
 
     return (
-        <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+        <main className="min-h-[calc(100vh-73px)] bg-slate-50 px-4 py-12 text-slate-900">
             <div className="mx-auto max-w-6xl">
 
-                {/* Page heading */}
                 <div className="mb-8">
-                    <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
-                        Quiz Details
-                    </p>
-
-                    <h1 className="mt-2 text-4xl font-black sm:text-5xl">
+                    <h1 className="text-4xl font-bold sm:text-5xl">
                         {quiz.title}
                     </h1>
 
-                    <p className="mt-3 text-slate-400">
+                    <p className="mt-3 text-slate-600">
                         View the quiz questions and start a live game when you&apos;re ready.
                     </p>
                 </div>
 
-                {/* Quiz summary */}
-                <QuizCard
-                    quiz={quiz}
-                    className="mt-5"
-                />
+                <QuizCard quiz={quiz} className="mt-5" />
 
-                {/* Actions */}
                 <div className="mt-6 flex flex-wrap gap-3">
-
                     {canHost && (
-                        <Button
-                            onClick={handleHostGame}
-                            disabled={hosting}
-                            className="rounded-xl bg-cyan-400 px-6 font-black text-slate-950 transition hover:bg-cyan-300 disabled:opacity-40"
-                        >
-                            {hosting
-                                ? "Creating Game..."
-                                : "Host Quiz"}
+                        <Button onClick={handleHostGame} disabled={hosting} className="rounded-md bg-indigo-600 px-6 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-40">
+                            {hosting ? "Creating Game..." : "Host Quiz"}
                         </Button>
                     )}
 
                     {isOwner && (
                         <>
-                            <Button
-                                variant="outline"
-                                onClick={() =>
-                                    navigate(`/quizzes/${quiz._id}/edit`)
-                                }
-                                className="rounded-xl border-white/15 bg-white/5 px-6 text-slate-200 hover:bg-white/10 hover:text-white"
-                            >
+                            <Button variant="outline" onClick={() => navigate(`/quizzes/${quiz._id}/edit`)} className="rounded-md border-slate-300 bg-white px-6 text-slate-700 hover:bg-slate-100">
                                 Edit Quiz Info
                             </Button>
 
-                            <Button
-                                variant="destructive"
-                                onClick={handleDeleteQuiz}
-                                className="rounded-xl border border-red-400/20 bg-red-400/10 px-6 text-red-300 hover:bg-red-400/20"
-                            >
+                            <Button variant="destructive" onClick={handleDeleteQuiz} className="rounded-md border border-red-200 bg-white px-6 text-red-600 hover:bg-red-50">
                                 Delete Quiz
                             </Button>
                         </>
                     )}
-
                 </div>
 
                 {error && (
-                    <div className="mt-5 rounded-2xl border border-red-400/20 bg-red-400/10 px-5 py-4 font-semibold text-red-300">
+                    <div className="mt-5 rounded-md border border-red-200 bg-red-50 px-4 py-3 font-medium text-red-700">
                         {error}
                     </div>
                 )}
 
-                {/* Questions */}
                 <section className="mt-12">
 
                     <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
                         <div>
-                            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-300">
-                                Questions
-                            </p>
-
-                            <h2 className="mt-2 text-3xl font-black">
+                            <h2 className="text-3xl font-bold">
                                 Quiz Questions
                             </h2>
+
+                            <p className="mt-2 text-slate-600">
+                                Review the questions included in this quiz.
+                            </p>
                         </div>
 
-                        <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-300">
-                            {quiz.questions.length}{" "}
-                            {quiz.questions.length === 1
-                                ? "question"
-                                : "questions"}
+                        <span className="rounded-md bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-600">
+                            {quiz.questions.length} {quiz.questions.length === 1 ? "question" : "questions"}
                         </span>
                     </div>
 
                     {quiz.questions.length === 0 ? (
-                        <div className="rounded-3xl border border-dashed border-white/15 bg-white/5 p-10 text-center">
-                            <h3 className="text-xl font-black">
+                        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center">
+                            <h3 className="text-xl font-semibold">
                                 No questions yet
                             </h3>
 
-                            <p className="mt-2 text-slate-400">
+                            <p className="mt-2 text-slate-500">
                                 This quiz does not have any questions.
                             </p>
                         </div>
                     ) : (
-                        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/10 shadow-xl backdrop-blur-xl">
+                        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
 
                             <Table>
                                 <TableCaption className="pb-5 text-slate-500">
@@ -259,13 +216,13 @@ function QuizDetailsPage() {
                                 </TableCaption>
 
                                 <TableHeader>
-                                    <TableRow className="border-white/10 hover:bg-transparent">
-                                        <TableHead className="px-6 py-4 font-bold text-slate-400">
+                                    <TableRow className="border-slate-200 hover:bg-transparent">
+                                        <TableHead className="px-6 py-4 font-semibold text-slate-600">
                                             Question
                                         </TableHead>
 
                                         {isOwner && (
-                                            <TableHead className="px-6 py-4 text-right font-bold text-slate-400">
+                                            <TableHead className="px-6 py-4 text-right font-semibold text-slate-600">
                                                 Actions
                                             </TableHead>
                                         )}
@@ -274,33 +231,22 @@ function QuizDetailsPage() {
 
                                 <TableBody>
                                     {quiz.questions.map((question, index) => (
-                                        <TableRow
-                                            key={question._id}
-                                            className="border-white/10 transition hover:bg-white/5"
-                                        >
+                                        <TableRow key={question._id} className="border-slate-200 transition hover:bg-slate-50">
                                             <TableCell className="px-6 py-5">
                                                 <div className="flex items-start gap-4">
-                                                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-sm font-black text-cyan-300">
+                                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-100 text-sm font-semibold text-slate-600">
                                                         {index + 1}
                                                     </span>
 
                                                     <div>
-                                                        <p className="font-bold text-white">
+                                                        <p className="font-medium text-slate-900">
                                                             {question.text}
                                                         </p>
 
                                                         <div className="mt-2 flex flex-wrap gap-3 text-xs text-slate-500">
-                                                            <span>
-                                                                {question.choices?.length || 0} choices
-                                                            </span>
-
-                                                            <span>
-                                                                {question.timeLimit || 30}s
-                                                            </span>
-
-                                                            <span>
-                                                                {question.points || 1000} points
-                                                            </span>
+                                                            <span>{question.choices?.length || 0} choices</span>
+                                                            <span>{question.timeLimit || 30}s</span>
+                                                            <span>{question.points || 1000} points</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -309,31 +255,16 @@ function QuizDetailsPage() {
                                             {isOwner && (
                                                 <TableCell className="px-6 py-5 text-right">
                                                     <div className="flex justify-end gap-2">
-
-                                                        <Button
-                                                            onClick={() =>
-                                                                navigate(
-                                                                    `/quizzes/${quiz._id}/questions/${question._id}/edit`
-                                                                )
-                                                            }
-                                                            className="rounded-xl border border-white/15 bg-white/10 text-white hover:bg-white/15"
-                                                        >
+                                                        <Button onClick={() => navigate(`/quizzes/${quiz._id}/questions/${question._id}/edit`)} className="rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-100">
                                                             Edit
                                                         </Button>
 
-                                                        <Button
-                                                            onClick={() =>
-                                                                handleDeleteQuestion(question._id)
-                                                            }
-                                                            className="rounded-xl border border-red-400/20 bg-red-400/10 text-red-300 hover:bg-red-400/20"
-                                                        >
+                                                        <Button onClick={() => handleDeleteQuestion(question._id)} className="rounded-md border border-red-200 bg-white text-red-600 hover:bg-red-50">
                                                             Delete
                                                         </Button>
-
                                                     </div>
                                                 </TableCell>
                                             )}
-
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -343,14 +274,7 @@ function QuizDetailsPage() {
                     )}
 
                     {isOwner && (
-                        <Button
-                            onClick={() =>
-                                navigate(
-                                    `/quizzes/${quiz._id}/questions/add`
-                                )
-                            }
-                            className="mt-6 rounded-xl bg-cyan-400 px-6 font-black text-slate-950 hover:bg-cyan-300"
-                        >
+                        <Button onClick={() => navigate(`/quizzes/${quiz._id}/questions/add`)} className="mt-6 rounded-md bg-indigo-600 px-6 font-semibold text-white hover:bg-indigo-700">
                             + Add Question
                         </Button>
                     )}
