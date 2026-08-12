@@ -1,7 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { signUp } from "../services/authService";
-
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 function Signup() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -38,49 +49,56 @@ function Signup() {
   };
 
   return (
-    <main>
-      <h1>Sign Up</h1>
-      <p className="error">{error}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            name="username"
+    <form className='w-full flex justify-center' onSubmit={handleSubmit}>
+     <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>Create New Account</CardTitle>
+        <CardDescription>
+          Enter your username and password below
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form>
+          <div className="flex flex-col gap-6">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Username</Label>
+              <Input
+                type='text'
+                autoComplete='off'
+                id='username'
+                value={formData.username}
+                name='username'
+                onChange={handleChange}
+                required
+                placeholder="e.g., RonaldoSui"
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+
+              </div>
+              <Input             type='password'
+            autoComplete='off'
+            id='password'
+            value={formData.password}
+            name='password'
             onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            name="password"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="confirm">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirm"
-            value={passwordConf}
-            name="passwordConf"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button disabled={isFormInvalid() || submitting}>{submitting ? 'Signing up...' : 'Sign Up'}</button>
-          <button onClick={() => navigate("/")}>Cancel</button>
-        </div>
-      </form>
-    </main>
+            required />
+            </div>
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter className="flex-col gap-2">
+        <Button type="submit" className="w-full">
+          Sign-Up
+        </Button>
+        <Button type="button" variant="ghost" className="w-full" onClick={()=> navigate('/sign-in')}>
+          Login
+        </Button>
+      </CardFooter>
+    </Card>
+    </form>
   );
 }
 export default Signup;
