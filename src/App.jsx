@@ -15,6 +15,9 @@ import QuizDetailsPage from "./pages/Quiz/QuizDetailsPage";
 import MyQuizzesPage from "./pages/Quiz/MyQuizzesPage";
 import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import EditQuizPage from "./pages/Quiz/EditQuizPage";
+import JoinGamePage from "./pages/Game/JoinGamePage";
+import ParticipantGamePage from "./pages/Game/ParticipantGamePage";
+
 function App() {
 
   const { user } = useAuth()
@@ -76,6 +79,9 @@ function App() {
         <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage /></ProtectedRoute>} />
         <Route path="/quizzes/create" element={<ProtectedRoute><CreateQuizPage /></ProtectedRoute>} />
         <Route path="/quizzes/:quizId/edit" element={<ProtectedRoute><EditQuizPage /></ProtectedRoute>} />
+        <Route path="/games/join" element={<ProtectedRoute><JoinGamePage /></ProtectedRoute>} />
+        <Route path="/games/:gameId/play" element={<ProtectedRoute><ParticipantGamePage /></ProtectedRoute>} />
+
       </Routes>
     </div>
   );
