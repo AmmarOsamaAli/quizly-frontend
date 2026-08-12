@@ -3,7 +3,7 @@ import { getQuizById } from "../../services/quizServices";
 import { useParams, useNavigate } from "react-router";
 import QuizCard from "../../components/QuizCard";
 
-function AllQuizzesPage() {
+function QuizDetailsPage() {
     const { quizId } = useParams();
     const [quiz, setQuiz] = useState(null);
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ function AllQuizzesPage() {
             <h1>Quiz Details</h1>
             {quiz ? (
                 <>
-                    <QuizCard quiz={quiz} key={quiz}/>
+                    <QuizCard quiz={quiz} key={quiz} />
                     <p>Questions: </p>
                     <ol key={quiz._id}>
                         {quiz.questions.map((oneQuestion) => (
@@ -44,4 +44,4 @@ function AllQuizzesPage() {
     );
 }
 
-export default AllQuizzesPage;
+export default QuizDetailsPage;
