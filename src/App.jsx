@@ -17,12 +17,14 @@ import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import EditQuizPage from "./pages/Quiz/EditQuizPage";
 function App() {
 
+  const { user } = useAuth()
+
   useEffect(() => {
     function onConnect() {
       console.log("Connected to Socket.IO:", socket.id)
     }
     function onDisconnect() {
-      console.log("Disconnected to Socket.IO:", socket.id)
+      console.log("Disconnected from Socket.IO:", socket.id)
     }
 
     function onConnectError(error) {
@@ -30,19 +32,36 @@ function App() {
     }
 
     socket.on("connect", onConnect)
-    socket.on("Disconnet", onDisconnect)
+    socket.on("disconnect", onDisconnect)
     socket.on("connect_error", onConnectError)
 
-    if (!socket.connected) {
-      socket.connect()
+    if (user) {
+
+      const token = localStorage.getItem("token")
+
+      if (token) {
+        socket.auth = { token: token }
+
+        if (!socket.connected) {
+          socket.connect()
+        }
+      }
+    } else {
+
+      if (socket.connected) {
+        socket.disconnect()
+      }
+
     }
+
 
     return () => {
       socket.off("connect", onConnect)
-      socket.off("Disconnet", onDisconnect)
+      socket.off("disconnect", onDisconnect)
+      socket.off("connect_error", onConnectError)
     }
 
-  }, [])
+  }, [user])
 
   return (
     <div>
@@ -52,11 +71,11 @@ function App() {
         <Route path="/sign-up" element={<SignupPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/quizzes" element={<AllQuizzesPage/>} />
-        <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage/></ProtectedRoute>} />
-        <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage/></ProtectedRoute>} />
-        <Route path="/quizzes/create" element={<ProtectedRoute><CreateQuizPage/></ProtectedRoute>} />
-        <Route path="/quizzes/:quizId/edit" element={<ProtectedRoute><EditQuizPage/></ProtectedRoute>} />
+        <Route path="/quizzes" element={<AllQuizzesPage />} />
+        <Route path="/quizzes/:quizId" element={<ProtectedRoute><QuizDetailsPage /></ProtectedRoute>} />
+        <Route path="/quizzes/my-quizzes" element={<ProtectedRoute><MyQuizzesPage /></ProtectedRoute>} />
+        <Route path="/quizzes/create" element={<ProtectedRoute><CreateQuizPage /></ProtectedRoute>} />
+        <Route path="/quizzes/:quizId/edit" element={<ProtectedRoute><EditQuizPage /></ProtectedRoute>} />
       </Routes>
     </div>
   );
