@@ -31,14 +31,41 @@ async function createQuestion(quizId, body){
     return response.data
 }
 
+async function deleteQuiz(quizId){
+    const response = await api.delete(`/quizzes/${quizId}`)
+    return response.data
+}
 
+async function getAllQuestions(quizId){
+    const response = await api.get(`/quizzes/${quizId}/questions`)
+    return response.data
+}
 
+async function getQuestionById(quizId, questionId){
+    const response = await api.get(`/quizzes/${quizId}/questions/${questionId}`)
+    return response.data
+}
+
+async function updateQuestion(quizId, questionId, body){
+    const response = await api.put(`/quizzes/${quizId}/questions/${questionId}`, body)
+    return response.data
+}
+
+async function deleteQuestion(quizId, questionId){
+    const response = await api.delete(`/quizzes/${quizId}/questions/${questionId}`)
+    return response.data
+}
 export {
     getAllQuizzes,
     getQuizById,
     getMyQuizzes,
     createQuiz, 
     updateQuiz,
-    createQuestion
+    deleteQuiz,
+    createQuestion,
+    getAllQuestions,
+    getQuestionById,
+    updateQuestion,
+    deleteQuestion
 };
 
