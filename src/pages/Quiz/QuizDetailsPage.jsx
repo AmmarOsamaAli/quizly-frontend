@@ -47,10 +47,10 @@ function QuizDetailsPage() {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                   {quiz.questions.map((e) => {
+                   {quiz.questions.map((e, i) => {
                     return (
                          <TableRow>
-                            <TableCell className="font-medium">{e.text}</TableCell>
+                            <TableCell className="font-medium">Q{i+1}: {e.text}</TableCell>
                             <TableCell className="text-right">
                                 <div className="flex justify-end items-center gap-3">
                                     <Button>

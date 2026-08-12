@@ -24,8 +24,7 @@ function MyQuizzesPage() {
             <h1>My Quizzes</h1>
             {quiz.map((oneQuiz) =>
                 <>
-                    <QuizCard quiz={oneQuiz} key={oneQuiz} />
-                    <Link to={`/quizzes/${oneQuiz._id}`} className='quiz-card-action'>Quiz Details</Link>
+                    <QuizCard quiz={oneQuiz} key={oneQuiz} isDetail={true} />
                 </>
             )}
         </div>

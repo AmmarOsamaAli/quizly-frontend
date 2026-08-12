@@ -26,11 +26,19 @@ async function updateQuiz(quizId, body){
     return response.data
 }
 
+async function createQuestion(quizId, body){
+    const response = await api.post(`/quizzes/${quizId}/questions`, body)
+    return response.data
+}
+
+
+
 export {
     getAllQuizzes,
     getQuizById,
     getMyQuizzes,
     createQuiz, 
-    updateQuiz
+    updateQuiz,
+    createQuestion
 };
 
