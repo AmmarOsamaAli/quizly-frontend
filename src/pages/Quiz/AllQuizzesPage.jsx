@@ -21,14 +21,15 @@ function AllQuizzesPage() {
     }, [])
 
   return (
-    <div>
-        <h1>All Quizzes</h1>
-        {quiz.map((oneQuiz)=>
+    <div className='px-10 mt-10'>
+        <h1 className='text-2xl font-bold'>All Quizzes</h1>
+        <div className='grid mt-7 grid-cols-4 gap-4 items-start w-full'>
+            {quiz.map((oneQuiz)=>
         <div key={oneQuiz._id}>
-            <QuizCard quiz={oneQuiz}/>
-            <Link to={`/quizzes/${oneQuiz._id}`} className='quiz-card-action'>Quiz Details</Link> 
+            <QuizCard quiz={oneQuiz} isDetail={true} />
         </div>
         )}
+        </div>
     </div>
   )
 }

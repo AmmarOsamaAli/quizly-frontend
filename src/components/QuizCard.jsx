@@ -1,19 +1,48 @@
 import React from 'react'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router'
-import './quizCard.css'
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
-function QuizCard({quiz}) {
+function QuizCard({ quiz, isDetail, className }) {
+
+
+  const navigate = useNavigate()
+
+  const colors = {
+    "Hard": "bg-red-500/20 text-red-400",
+    "Easy": "bg-green-500/20 text-green-400",
+    "Medium": "bg-yellow-500/20 text-yellow-400" 
+  }
+
   return (
-    <div className='quiz-card'>
-        <h2>Title: {quiz.title}</h2>
-        <p>{quiz.description}</p>
-        <div className='quiz-card-meta'>
-        <span className='quiz-card-badge'>Difficulty: {quiz.difficulty}</span>
-        <span className='quiz-card-badge'>Category{quiz.category}</span>
-        <span className='quiz-card-badge'>Visibility: {quiz.visibility}</span>
-        </div>
-    </div>
+    <Card className={`relative mx-auto w-full pt-3 ${className}`}>
+      <CardHeader>
+        <CardAction>
+          <Badge variant="secondary" className={colors[quiz.difficulty]}>{quiz.difficulty}</Badge>
+          <Badge variant="secondary" className="bg-grey-200 ">{quiz.category}</Badge>
+          <Badge variant="secondary">{quiz.visibility}</Badge>
+
+        </CardAction>
+        <CardTitle>{quiz.title}</CardTitle>
+      </CardHeader>
+      <CardDescription className="px-4">
+        {quiz.description}
+      </CardDescription>
+      <CardFooter>
+        {isDetail && (
+          <Button onClick={() => navigate(`/quizzes/${quiz._id}`)} className="w-full">View Details</Button>
+        )}
+      </CardFooter>
+    </Card>
   )
 }
 
