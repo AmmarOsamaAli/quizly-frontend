@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteQuestion, getQuizById } from "../../services/quizServices";
+import { deleteQuestion, getQuizById, deleteQuiz } from "../../services/quizServices";
 import { createGame } from "@/services/gameService";
 import { useParams, useNavigate } from "react-router";
 import { useAuth } from "../../context/AuthContext";
@@ -41,6 +41,15 @@ function QuizDetailsPage() {
     useEffect(() => {
         loadQuizzes();
     }, [quizId]);
+
+    async function handleDeleteQuiz(){
+        try {
+            await deleteQuiz(quiz._id)
+            navigate('/quizzes/my-quizzes')
+        } catch (error) {
+            setError(error.message || 'Could not delete quiz')
+        }
+    }
 
     async function handleDeleteQuestion(questionId) {
         try {
@@ -89,6 +98,21 @@ function QuizDetailsPage() {
                                 {hosting ? "Creating Game..." : "Host Quiz"}
                             </Button>
                         )}
+                        {isOwner &&
+                        <>
+                            <Button
+                            variant="outline"
+                            onClick={()=>navigate(`/quizzes/${quiz._id}/edit`)}
+                            >
+                                Edit Quiz Info
+                            </Button>
+                            <Button 
+                            variant="destructive"
+                            onClick={()=>{handleDeleteQuiz()}}
+                            >
+                                Delete Quiz
+                            </Button>
+                        </>}
                     </div>
 
                     {error && (
