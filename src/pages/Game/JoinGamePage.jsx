@@ -14,7 +14,7 @@ function JoinGamePage() {
         event.preventDefault()
     }
 
-    function handleChange(event) {
+    async function handleChange(event) {
         setCode(event.target.value);
         setError("")
 

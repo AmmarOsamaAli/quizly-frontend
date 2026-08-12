@@ -17,6 +17,7 @@ import CreateQuizPage from "./pages/Quiz/CreateQuizPage";
 import EditQuizPage from "./pages/Quiz/EditQuizPage";
 import JoinGamePage from "./pages/Game/JoinGamePage";
 import ParticipantGamePage from "./pages/Game/ParticipantGamePage";
+import GameResultsPage from "./pages/Game/GameResultsPage";
 
 function App() {
 
@@ -81,6 +82,7 @@ function App() {
         <Route path="/quizzes/:quizId/edit" element={<ProtectedRoute><EditQuizPage /></ProtectedRoute>} />
         <Route path="/games/join" element={<ProtectedRoute><JoinGamePage /></ProtectedRoute>} />
         <Route path="/games/:gameId/play" element={<ProtectedRoute><ParticipantGamePage /></ProtectedRoute>} />
+        <Route path="/games/:gameId/results" element={<ProtectedRoute><GameResultsPage /></ProtectedRoute>} />
 
       </Routes>
     </div>
