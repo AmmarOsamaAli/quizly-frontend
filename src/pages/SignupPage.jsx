@@ -49,7 +49,7 @@ function Signup() {
   };
 
   return (
-    <form className='w-full flex justify-center' onSubmit={handleSubmit}>
+    <form className='w-full flex justify-center mt-25' onSubmit={handleSubmit}>
      <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>Create New Account</CardTitle>
@@ -61,7 +61,7 @@ function Signup() {
         <form>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="email">Username</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
                 type='text'
                 autoComplete='off'

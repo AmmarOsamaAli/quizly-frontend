@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router'
 import QuizForm from '../../components/QuizForm'
 import { updateQuiz, getQuizById } from '../../services/quizServices'
+import QuestionCard from '@/components/QuestionCard'
 
 function EditQuizPage() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ function EditQuizPage() {
                 onSubmit={handleSubmit}
                 initialData={quizData}
                 buttonLabel='Save Changes' />
-
+            
         </div>
     )
 }

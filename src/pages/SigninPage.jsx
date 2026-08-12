@@ -52,7 +52,7 @@ const SignInForm = ({}) => {
   };
 
   return (
-    <form className='w-full flex justify-center' onSubmit={handleSubmit}>
+    <form className='w-full flex justify-center mt-25' onSubmit={handleSubmit}>
      <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>Login to your account</CardTitle>
@@ -79,12 +79,6 @@ const SignInForm = ({}) => {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
               </div>
               <Input             type='password'
             autoComplete='off'

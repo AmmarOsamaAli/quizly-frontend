@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-function QuizCard({ quiz, isDetail }) {
+function QuizCard({ quiz, isDetail, className }) {
 
 
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ function QuizCard({ quiz, isDetail }) {
   }
 
   return (
-    <Card className="relative mx-auto w-full max-w-sm pt-3">
+    <Card className={`relative mx-auto w-full pt-3 ${className}`}>
       <CardHeader>
         <CardAction>
           <Badge variant="secondary" className={colors[quiz.difficulty]}>{quiz.difficulty}</Badge>
