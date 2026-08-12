@@ -1,38 +1,31 @@
 import QuestionForm from '@/components/QuestionForm'
 import { createQuestion } from '@/services/quizServices'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 
 function AddQuestionPage() {
-
-    const [questions, setQuestions] = useState([])
-    const [error, setError] = useState('')
+    const { quizId } = useParams()
     const navigate = useNavigate()
-    function handleAddQuestion(newQuestion){
-        setQuestions((prevQuestion)=>[...prevQuestion, newQuestion])
-        setError('')
-    }
-    function handleRemoveQuestion(indexToRemove){
-        setQuestions(questions.filter((_, index) => index !== indexToRemove))
+    const [error, setError] = useState('')
+
+    async function handleAddQuestion(newQuestion) {
+        try {
+            await createQuestion(quizId, newQuestion)
+            setError('')
+        } catch (err) {
+            setError(err.message)
+        }
     }
 
-  async function handleSubmit(){
-    try{
-      const response = await createQuestion({questions})
-      console.log(response)
-      const createdQuiz = response
-      navigate(`/quizzes/${createdQuiz._id}`)
-    }catch(error){
-      setError(error.message)
-    }
-  }
-
-
-  return (
-    <div>
-          <QuestionForm onSubmit={handleAddQuestion}/>
-    </div>
-  )
+    return (
+        <div>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <QuestionForm onSubmit={handleAddQuestion} />
+            <button type='button' onClick={() => navigate(`/quizzes/${quizId}`)}>
+                Done
+            </button>
+        </div>
+    )
 }
 
 export default AddQuestionPage
