@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { deleteQuestion, getQuizById } from "../../services/quizServices";
 import { createGame } from "@/services/gameService";
 import { useParams, useNavigate } from "react-router";
+import { useAuth } from "../../context/AuthContext";
 import QuizCard from "../../components/QuizCard";
 import {
     Table,
@@ -16,10 +17,14 @@ import { Button } from "@/components/ui/button";
 
 function QuizDetailsPage() {
     const { quizId } = useParams();
+    const { user } = useAuth();
     const [quiz, setQuiz] = useState(null);
     const [hosting, setHosting] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true)
+    const isOwner = user && quiz && quiz.owner._id === user._id;
+    const canHost = quiz && (quiz.visibility === 'Public' || isOwner);
 
     async function loadQuizzes() {
         try {
@@ -28,19 +33,21 @@ function QuizDetailsPage() {
 
         } catch (error) {
             console.log(error);
+        }finally{
+            setLoading(false)
         }
     }
 
     useEffect(() => {
         loadQuizzes();
-    }, []);
+    }, [quizId]);
 
-    async function handleDeleteQuestion(questionId){
-        try{
+    async function handleDeleteQuestion(questionId) {
+        try {
             await deleteQuestion(quiz._id, questionId)
-            setQuiz({...quiz, questions: quiz.questions.filter(q=>q._id !== questionId)})
-        }catch(error){
-            setError(error.message)
+            setQuiz({ ...quiz, questions: quiz.questions.filter(q => q._id !== questionId) })
+        } catch (error) {
+            setError(error.response?.data?.message || "Could not delete question")
         }
     }
 
@@ -69,17 +76,19 @@ function QuizDetailsPage() {
     return (
         <div className="w-[75%] mt-5 mx-auto">
             <h1>Quiz Details</h1>
-            {quiz ? (
+            {loading ? <p>Loading...</p> : quiz ? (
                 <>
                     <QuizCard quiz={quiz} className="mt-5" />
 
                     <div className="mt-5 flex gap-3">
-                        <Button
-                            onClick={handleHostGame}
-                            disabled={hosting}
-                        >
-                            {hosting ? "Creating Game..." : "Host Quiz"}
-                        </Button>
+                        {canHost && (
+                            <Button
+                                onClick={handleHostGame}
+                                disabled={hosting}
+                            >
+                                {hosting ? "Creating Game..." : "Host Quiz"}
+                            </Button>
+                        )}
                     </div>
 
                     {error && (
@@ -100,21 +109,25 @@ function QuizDetailsPage() {
                                     <TableRow key={e._id}>
                                         <TableCell className="font-medium">Q{i + 1}: {e.text}</TableCell>
                                         <TableCell className="text-right">
-                                            <div className="flex justify-end items-center gap-3">
-                                                <Button onClick={()=>{navigate(`/quizzes/${quiz._id}/questions/${e._id}/edit`)}}>
-                                                    Edit
-                                                </Button>
-                                                <Button className="bg-red-400 hover:bg-red-300" onClick={()=>{handleDeleteQuestion(e._id)}}>
-                                                    Delete
-                                                </Button>
-                                            </div>
+                                            {isOwner && (
+                                                <div className="flex justify-end items-center gap-3">
+                                                    <Button onClick={() => { navigate(`/quizzes/${quiz._id}/questions/${e._id}/edit`) }}>
+                                                        Edit
+                                                    </Button>
+                                                    <Button className="bg-red-400 hover:bg-red-300" onClick={() => { handleDeleteQuestion(e._id) }}>
+                                                        Delete
+                                                    </Button>
+                                                </div>
+                                            )}
                                         </TableCell>
                                     </TableRow>
                                 )
                             })}
                         </TableBody>
-                        <button onClick={() => { navigate(`/quizzes/${quiz._id}/questions/add`) }}>Add Question</button>
                     </Table>
+                    {isOwner && (
+                        <Button onClick={() => { navigate(`/quizzes/${quiz._id}/questions/add`) }}>Add Question</Button>
+                    )}
                 </>
             ) : (
                 <p>not found</p>
