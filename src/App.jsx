@@ -20,6 +20,7 @@ import ParticipantGamePage from "./pages/Game/ParticipantGamePage";
 import AddQuestionPage from "./pages/Quiz/Questions/AddQuestionPage";
 import GameResultsPage from "./pages/Game/GameResultsPage";
 import HostGamePage from "./pages/Game/HostGamePage";
+import EditQuestionPage from "./pages/Quiz/Questions/EditQuestionPage";
 
 function App() {
 
@@ -86,7 +87,8 @@ function App() {
         <Route path="/games/:gameId/play" element={<ProtectedRoute><ParticipantGamePage /></ProtectedRoute>} />
         <Route path="/games/:gameId/results" element={<ProtectedRoute><GameResultsPage /></ProtectedRoute>} />
         <Route path="/games/:gameId/host" element={<ProtectedRoute><HostGamePage /></ProtectedRoute>} />
-        <Route path="/quizzes/:quizId/questions" element={<ProtectedRoute><AddQuestionPage /></ProtectedRoute>} />
+        <Route path="/quizzes/:quizId/questions/add" element={<ProtectedRoute><AddQuestionPage /></ProtectedRoute>} />
+        <Route path="/quizzes/:quizId/questions/:questionId/edit" element={<ProtectedRoute><EditQuestionPage/></ProtectedRoute>} />
       </Routes>
     </div>
   );
