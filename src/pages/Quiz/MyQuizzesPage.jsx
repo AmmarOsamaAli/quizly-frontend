@@ -1,6 +1,5 @@
 import { getMyQuizzes } from '../../services/quizServices'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router'
 import QuizCard from '../../components/QuizCard'
 
 function MyQuizzesPage() {
@@ -20,14 +19,47 @@ function MyQuizzesPage() {
     }, [])
 
     return (
-        <div>
-            <h1>My Quizzes</h1>
-            {quiz.map((oneQuiz) =>
-                <>
-                    <QuizCard quiz={oneQuiz} key={oneQuiz} isDetail={true} />
-                </>
-            )}
-        </div>
+        <main className="min-h-[calc(100vh-73px)] bg-linear-to-br from-slate-950 via-indigo-950 to-slate-900 px-4 py-12 text-white">
+            <div className="mx-auto max-w-6xl">
+
+                <div className="mb-10">
+                    <p className="text-sm font-bold uppercase tracking-[0.25em] text-cyan-300">
+                        Your Collection
+                    </p>
+
+                    <h1 className="mt-2 text-4xl font-black sm:text-5xl">
+                        My Quizzes
+                    </h1>
+
+                    <p className="mt-3 max-w-2xl text-slate-400">
+                        View and manage the quizzes you have created.
+                    </p>
+                </div>
+
+                {quiz.length === 0 ? (
+                    <div className="rounded-3xl border border-dashed border-white/15 bg-white/5 p-12 text-center">
+                        <h2 className="text-2xl font-black">
+                            No quizzes yet
+                        </h2>
+
+                        <p className="mt-2 text-slate-400">
+                            You haven&apos;t created any quizzes yet.
+                        </p>
+                    </div>
+                ) : (
+                    <div className="grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        {quiz.map((oneQuiz) => (
+                            <QuizCard
+                                key={oneQuiz._id}
+                                quiz={oneQuiz}
+                                isDetail={true}
+                            />
+                        ))}
+                    </div>
+                )}
+
+            </div>
+        </main>
     )
 }
 
