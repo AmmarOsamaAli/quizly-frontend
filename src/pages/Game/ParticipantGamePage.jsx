@@ -100,6 +100,7 @@ function ParticipantGamePage() {
 
         function handleQuestionResult(results) {
             setQuestionResult(results)
+            setTimeLeft(0)
 
             if (results.selectedAnswer !== undefined) {
                 setSelectedAnswer(results.selectedAnswer)
