@@ -1,6 +1,6 @@
 # Project Name
 
-Quizly | Create Quizzes, Join Games, and Compete with Friends
+### **Quizly | Create Quizzes, Join Games, and Compete with Friends**
 
 ## Overview
 
@@ -122,6 +122,13 @@ Follow these steps to set up and run the React frontend locally.
 |  CreateQuizPage |    /quizzes/create    |  Create Quiz Page |
 |   EditQuizPage  | /quizzes/:quizId/edit |   Edit Quiz Page  |
 
+### Questions
+
+|       Page       |                     URI                     |       Use Case      |
+|:----------------:|:-------------------------------------------:|:-------------------:|
+|  AddQuestionPage |        /quizzes/:quizId/questions/add       |  Add Question Page  |
+| EditQuestionPage | /quizzes/:quizId/questions/:questionId/edit | Edit Questions Page |
+
 #### Game
 
 |         Page        |           URI          |              Use Case             |
@@ -135,10 +142,29 @@ Follow these steps to set up and run the React frontend locally.
 
 ## Features
 
-
+- User authentication and protected routes
+- Create, edit, delete, and manage quizzes
+- Add, edit, and delete quiz questions
+- Public and private quizzes
+- Real-time multiplayer games with 6-digit join codes
+- Live synchronized questions using Socket.IO
+- Timed questions with speed-based scoring
+- Automatic question progression and answer reveal
+- Live player lobby and final leaderboard
+- Quiz ownership and backend authorization
 
 ## Future Enhancements
 
-
+- Host controls for manually skipping or pausing questions
+- More quiz customization, such as images and different question types
+- Game history and player statistics
+- Search, filtering, and quiz categories improvements
+- Reconnecting players more reliably after connection loss
+- Responsive mobile optimization
+- Improved game security and production-ready persistent timers
 
 ## Credits
+
+- Mr. Omar Kamal (https://github.com/omarakamal)
+- Mr. Zaid (https://github.com/justzaid)
+- Mrs. Israa Ashoor (https://github.com/ISRAA-ASHOOR)
